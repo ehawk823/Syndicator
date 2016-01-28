@@ -5,10 +5,11 @@ class Post < ActiveRecord::Base
   def self.syndicate
     @posts = Post.all
     @posts.each do |post|
-      # post.tweet
-      #post.fbook
-      # post.slack
+      post.tweet
+      post.fbook
+      post.slack
       post.tumblr
+      post.twilio
     end
   end
 
@@ -38,26 +39,30 @@ class Post < ActiveRecord::Base
     end
   end
 
-  # def tumblr
-  #   response = Unirest.post "api.tumblr.com/v2/blog/syndicator2/post",
-  #                       headers:{ "Accept" => "application/json" },
-  #                       parameters:{ :title => "test", :body => "test" }
-  # end
 
-# stapler = Staplegun.new :email => "evan.alexander.hawk@gmail.com", :password => "Syndicator"
-#  stapler.pin {board_id: "110267959565564041", link:"http://imgur.com", image_url: "http://imgur.com/gallery/3ttnIn2.jpg", description: "Awesome!"}
+  def tumblr
+    client = Tumblr::Client.new({
+      :consumer_key => ENV['OAUTH_CONSUMER_KEY'],
+      :consumer_secret => ENV['SECRET_KEY'],
+      :oauth_token => ENV['OAUTH_TOKEN'],
+      :oauth_token_secret => ENV['OAUTH_TOKEN_SECRET']
+    })
+    client.text("syndicator2", :title => "trial", :body => "trial")
+  end
 
-# YouTubeIt::Client.new(:dev_key => "AIzaSyAeupAVAJrlfTDeuPkEhVSyVO9X6O7vxwk")
-#
-# Here is your client ID
-# 419112315217-7ft9usomk83tnt63kb6hivt7ufr4siuv.apps.googleusercontent.com
-# Here is your client secret
-# qlSbIFxK5n3K9WJUmj5yJFEw
-#
-# client = YouTubeIt::OAuthClient.new("419112315217-7ft9usomk83tnt63kb6hivt7ufr4siuv.apps.googleusercontent.com", "qlSbIFxK5n3K9WJUmj5yJFEw", "UCKiw159ahYxZT0RNryTT3Rg", "AIzaSyAeupAVAJrlfTDeuPkEhVSyVO9X6O7vxwk")
-# YouTubeIt::OAuthClient.new(:consumer_key => '419112315217-7ft9usomk83tnt63kb6hivt7ufr4siuv.apps.googleusercontent.com', :consumer_secret => 'qlSbIFxK5n3K9WJUmj5yJFEw', :dev_key => 'AIzaSyAeupAVAJrlfTDeuPkEhVSyVO9X6O7vxwk')
-# client.add_comment(EX9NZ_mtZ0Q, "test comment!")
+  def twilio
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV['TWILIO_TOKEN']
+    client = Twilio::REST::Client.new account_sid, auth_token
 
-# client = YouTubeIt::Client.new(:dev_key => "AIzaSyAeupAVAJrlfTDeuPkEhVSyVO9X6O7vxwk")
+    from = "8452633595"
+
+      client.account.messages.create(
+        :from => from,
+        :to => '8455969475',
+        :body => "Hey, party at 6PM!"
+      )
+      puts "Sent message"
+  end
 
 end
