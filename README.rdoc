@@ -2,7 +2,7 @@
 
 == Description
 
-Syndicator allows users to create event postings that will be automatically be sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio.
+Syndicator allows users to create event postings that will automatically be sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio.
 
 == Screenshots
 
