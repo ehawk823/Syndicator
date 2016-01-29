@@ -11,6 +11,8 @@
   <%= f.label :price %>:
   <%= f.text_field :price %><br />
 
+  <%= f.hidden_field :is_new, value: true %>
+
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>

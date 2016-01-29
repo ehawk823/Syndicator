@@ -5,12 +5,16 @@ class Post < ActiveRecord::Base
   def self.syndicate
     @posts = Post.all
     @posts.each do |post|
-      post.tweet
-      post.fbook
-      post.slack
-      post.tumblr
-      post.twilio
+      # if post.is_new == true
+        #  post.tweet
+        # post.fbook
+        post.slack
+        # post.tumblr
+        # post.twilio
+      # end
+      # post.is_new = false
     end
+    puts "cron"
   end
 
   def tweet
@@ -21,21 +25,21 @@ class Post < ActiveRecord::Base
       config.access_token_secret = ENV["YOUR_ACCESS_SECRET"]
     end
     if self.title != nil
-      client.update("#{self.title}")
+      client.update("#{self.title} - #{self.short_desc} ($#{self.price})")
     end
   end
 
   def fbook
     @user = Koala::Facebook::API.new(ENV["ACCESS_TOKEN"])
     if self.title != nil
-      @user.put_connections("me", "feed", :message => "#{self.title}")
+      @user.put_connections("me", "feed", :message => "#{self.title} - #{self.short_desc} ($#{self.price})")
     end
   end
 
   def slack
-    notifier = Slack::Notifier.new ENV["WEB_HOOK"], channel: '#3-musketeers', username: 'notifier'
+    notifier = Slack::Notifier.new ENV["WEB_HOOK"], channel: '#general', username: 'notifier'
     if self.title != nil
-      notifier.ping "#{self.title}"
+      notifier.ping "#{self.title} - #{self.full_desc} ($#{self.price})"
     end
   end
 
@@ -47,7 +51,7 @@ class Post < ActiveRecord::Base
       :oauth_token => ENV['OAUTH_TOKEN'],
       :oauth_token_secret => ENV['OAUTH_TOKEN_SECRET']
     })
-    client.text("syndicator2", :title => "trial", :body => "trial")
+    client.text("syndicator2", :title => "#{self.title}", :body => "#{self.full_desc}")
   end
 
   def twilio
@@ -60,7 +64,7 @@ class Post < ActiveRecord::Base
       client.account.messages.create(
         :from => from,
         :to => '8455969475',
-        :body => "Hey, party at 6PM!"
+        :body => "#{self.title} - #{self.full_desc} ($#{self.price})"
       )
       puts "Sent message"
   end
