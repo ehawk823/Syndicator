@@ -1,10 +1,10 @@
-== Syndicator
+= Syndicator
 
-= Description
+== Description
 
 Syndicator allows users to create event postings that will be automatically be sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio.
 
-= Features
+== Features
 
 The app utilizes the whenever gem locally to run an hourly rake task which calls the syndicate method and checks for new posts.
 
@@ -12,7 +12,7 @@ New posts are sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio
 
 Only admin users can create new events for syndication.
 
-= Usage
+== Usage
 
 Clone the app to your local machine. Configure your application.yml file with the keys needed to run the methods in the PostsController. Create new events as an Admin user and the app will syndicate those events!
 
