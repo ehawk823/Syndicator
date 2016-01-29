@@ -37,7 +37,7 @@ Only admin users can create new events for syndication.
 
 == Usage
 
-Clone the app to your local machine. Configure your application.yml file with the keys needed to run the methods in the PostsController. Create new events as an Admin user and the app will syndicate those events!
+Clone the app to your local machine. Configure your application.yml file with the keys needed to run the methods in the PostsController. Create new event postings as an Admin user and the app will syndicate those posts!
 
 Select a preferred phone number upon event creation for text notifications.
 
