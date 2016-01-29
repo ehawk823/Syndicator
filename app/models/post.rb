@@ -1,20 +1,22 @@
 require 'pry'
 
 class Post < ActiveRecord::Base
+  validates_presence_of :title, :short_desc, :full_desc, :price
+  validates :price,    :numericality => true
 
   def self.syndicate
     @posts = Post.all
     @posts.each do |post|
       if post.is_new == true
           post.tweet
-          # post.fbook
-          # post.slack
-          # post.tumblr
-          # post.twilio
+          post.fbook
+          post.slack
+          post.tumblr
+          post.twilio
       end
       post.is_new = false
+      post.save
     end
-    puts "cron"
   end
 
   def tweet

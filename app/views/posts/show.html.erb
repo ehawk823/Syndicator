@@ -1,4 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<div class="page-header">
+<h2><span class="glyphicon glyphicon-star" aria-hidden="true"></span><%= @post.title %></h2>
+</div>
+
+<div class="well">
+  <b>Description:</b> <%= @post.full_desc %>
+</br>
+  <b>Price:</b> $<%= @post.price %>
+<br></br>
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
+</div>
