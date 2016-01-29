@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129050052) do
+ActiveRecord::Schema.define(version: 20160129143150) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "short_desc"
     t.text     "full_desc"
     t.integer  "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.boolean  "is_new"
+    t.integer  "phone",      limit: 8
   end
 
   create_table "users", force: :cascade do |t|

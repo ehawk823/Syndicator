@@ -11,6 +11,10 @@
   <%= f.label :price %>:<br />
   <%= f.text_field :price %><br><br />
 
+  <%= f.label :phone %>:<br />
+  (Add a number to text an update)<br /> 
+  <%= f.text_field :phone %><br><br />
+
   <%= f.hidden_field :is_new, value: true %>
 
   <% if @post.errors.any? %>

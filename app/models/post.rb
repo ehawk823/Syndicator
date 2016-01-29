@@ -3,6 +3,10 @@ require 'pry'
 class Post < ActiveRecord::Base
   validates_presence_of :title, :short_desc, :full_desc, :price
   validates :price,    :numericality => true
+  validates :phone,    :numericality => true
+  validates :phone,    length: { is: 10 }
+
+# Calls posting methods on all newly created posts and then sets each post's is_new value to false
 
   def self.syndicate
     @posts = Post.all
@@ -19,6 +23,8 @@ class Post < ActiveRecord::Base
     end
   end
 
+# Sets client and sends tweet to my twitter account
+
   def tweet
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV["YOUR_CONSUMER_KEY"]
@@ -31,12 +37,16 @@ class Post < ActiveRecord::Base
     end
   end
 
+# Uses Koala gem to send post to my facebook account
+
   def fbook
     @user = Koala::Facebook::API.new(ENV["ACCESS_TOKEN"])
     if self.title != nil
       @user.put_connections("me", "feed", :message => "#{self.title} - #{self.short_desc} ($#{self.price})")
     end
   end
+
+#Uses notifier gem to send post to specified slack channel
 
   def slack
     notifier = Slack::Notifier.new ENV["WEB_HOOK"], channel: '#general', username: 'notifier'
@@ -45,6 +55,7 @@ class Post < ActiveRecord::Base
     end
   end
 
+# Sets tumblr client and send post to my tumblr account
 
   def tumblr
     client = Tumblr::Client.new({
@@ -56,6 +67,8 @@ class Post < ActiveRecord::Base
     client.text("syndicator2", :title => "#{self.title}", :body => "#{self.full_desc}")
   end
 
+# Sends text with twilio to the number specified when the post was created
+
   def twilio
     account_sid = ENV["TWILIO_SID"]
     auth_token = ENV['TWILIO_TOKEN']
@@ -65,7 +78,7 @@ class Post < ActiveRecord::Base
 
       client.account.messages.create(
         :from => from,
-        :to => '8455969475',
+        :to => self.phone,
         :body => "#{self.title} - #{self.full_desc} ($#{self.price})"
       )
       puts "Sent message"
