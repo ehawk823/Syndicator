@@ -1,27 +1,26 @@
-== README
+# Syndicator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
 
-Things you may want to cover:
+Syndicator allows users to create event postings that will be automatically be sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio.
 
-* Ruby version
+## Features
 
-* System dependencies
+The app utilizes the whenever gem locally to run an hourly rake task which calls the syndicate method and checks for new posts.
 
-* Configuration
+New posts are sent to Twitter, Facebook, Tumblr, Slack and over text with Twilio via their corresponding methods.
 
-* Database creation
+Only admin users can create new events for syndication.
 
-* Database initialization
+## Usage
 
-* How to run the test suite
+Clone the app to your local machine. Configure your application.yml file with the keys needed to run the methods in the PostsController. Create new events as an Admin user and the app will syndicate those events!
 
-* Services (job queues, cache servers, search engines, etc.)
+Select a preferred phone number upon event creation for text notifications.
 
-* Deployment instructions
+Configure the slack method and webhook to ping the appropriate channel.
 
-* ...
+
 
 
 Please feel free to use a different markup language if you do not plan to run
