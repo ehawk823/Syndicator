@@ -7,16 +7,22 @@ Syndicator allows users to create event postings that will be automatically be s
 == Screenshots
 
 http://s29.postimg.org/r32ksb4nr/Homepage.png
+Homepage
 
 http://s30.postimg.org/fqa38radd/Text_Screen.png
+Text
 
 http://s9.postimg.org/o8oq8ijan/Facebook_Screen.png
+Facebook
 
 http://s13.postimg.org/642x9adg7/Twitter_Screen.png
+Twitter
 
 http://s23.postimg.org/65iqlpqa3/Slack_Screen.png
+Slack
 
 http://s28.postimg.org/7q5fuywsd/Tumblr_Screen.png
+Tumblr
 
 == Features
 
