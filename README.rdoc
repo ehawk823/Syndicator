@@ -7,6 +7,7 @@ Syndicator allows users to create event postings that will be automatically be s
 == Screenshots
 
 http://s29.postimg.org/r32ksb4nr/Homepage.png
+-
 Homepage
 
 http://s30.postimg.org/fqa38radd/Text_Screen.png
