@@ -5,14 +5,14 @@ class Post < ActiveRecord::Base
   def self.syndicate
     @posts = Post.all
     @posts.each do |post|
-      # if post.is_new == true
-        #  post.tweet
-        # post.fbook
-        post.slack
-        # post.tumblr
-        # post.twilio
-      # end
-      # post.is_new = false
+      if post.is_new == true
+          post.tweet
+          # post.fbook
+          # post.slack
+          # post.tumblr
+          # post.twilio
+      end
+      post.is_new = false
     end
     puts "cron"
   end
